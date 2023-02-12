@@ -1,17 +1,14 @@
 let N = stdin.ReadLine() |> int
 let X = stdin.ReadLine().Split " " |> Array.map int
 
-let pow n = n * n
+let min = Array.min X
+let max = Array.max X
 
-let x = X |> Array.sort
-let min = Array.min x
-let max = Array.max x
-
-min
-|> Seq.unfold (fun n ->
-    if n > max then
-        None
+let rec loop p v =
+    if p > max then
+        v
     else
-        Some(x |> Array.fold (fun a b -> a + pow (b - n)) 0, n + 1))
-|> Seq.min
-|> printfn "%d"
+        let v' = X |> Array.fold (fun a i -> a + pown (i - p) 2) 0
+        loop (p + 1) (if v < v' then v else v')
+
+loop min Core.int.MaxValue |> printfn "%d"
