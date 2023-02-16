@@ -1,9 +1,7 @@
-let s =
-    stdin.ReadLine().Split " "
-    |> String.concat ""
-    |> int
+let s = stdin.ReadLine().Replace(" ", "") |> int
 
 let rec loop n =
-    n * n <= 100100 && (n * n = s || loop (n + 1))
+    let n' = n * n
+    n' <= 100100 && (n' = s || loop (n + 1))
 
 (if loop 0 then "Yes" else "No") |> printfn "%s"
