@@ -1,7 +1,7 @@
 let [| A; B |] = stdin.ReadLine().Split " " |> Array.map int
 
 let rec loop i =
-    if i = B + 1 then
+    if i > B then
         0
     else
         let s = i.ToString().ToCharArray()
