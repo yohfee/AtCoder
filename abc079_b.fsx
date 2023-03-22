@@ -1,9 +1,8 @@
-(match stdin.ReadLine() |> int with
- | 0 -> 2L
- | 1 -> 1L
- | n ->
-     (2L, 1L)
-     |> Seq.unfold (fun (a, b) -> Some(a + b, (b, a + b)))
-     |> Seq.take (n - 1)
-     |> Seq.last)
+seq {
+    yield 2L
+    yield 1L
+    yield! Seq.unfold (fun (a, b) -> Some(a + b, (b, a + b))) (2L, 1L)
+}
+|> Seq.skip (stdin.ReadLine() |> int)
+|> Seq.head
 |> printfn "%d"
